@@ -1,16 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = [
     { id: '1', name: 'Steven Gerrard', email: 'steven@gmail.com' },
     { id: '2', name: 'Wayne Rooney', email: 'rooney@gmail.com' },
 ]
 
-export const userSlice = createSlice({
+export const UserSlice = createSlice({
     name: 'users',
     initialState,
-    reducers: {}
+    reducers: {
+        userAdded: {
+            reducer (state, action) {
+                state.push(action.payload)
+            },
+            prepare (name, email) {
+                return {
+                    payload: {
+                        id: nanoid(),
+                        name,
+                        email
+                    }
+                }
+            }
+        }
+    }
 })
 
 export const selectAllUsers = (state) => state.users
 
-export default userSlice.reducer
+export const { userAdded } = userSlice.actions
+
+export default UserSlice.reducer
