@@ -13,8 +13,8 @@ const UsersList = () => {
   
   return (
     <section>
-        <h1>Users</h1>
-        {renderUsers}
+      <h1>Users</h1>
+      {renderUsers}
     </section>
   )
 }
