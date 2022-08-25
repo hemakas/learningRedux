@@ -10,6 +10,8 @@ function App() {
       <UsersList />
       <AddUser />
 
+      <hr></hr>
+
       <EventsList />
       <AddEvent />
     </div>
