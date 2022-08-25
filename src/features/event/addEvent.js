@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { eventAdded } from './eventSlice'
-// import DatePicker from 'react-datepicker'
-// import moment from 'moment'
 import { selectAllUsers } from '../user/userSlice'
 
 const AddEvent = () => {
@@ -25,9 +23,6 @@ const AddEvent = () => {
 
   const OnSubmit = () => {
     if (title && content) {
-      
-      // const start = moment(start).format('L')
-      // const end = moment(end).format('L')
 
       dispatch (
         eventAdded ( title, content, start, end, userId )
@@ -35,12 +30,13 @@ const AddEvent = () => {
 
       setTitle('')
       setContent('')
-      setStart(new Date())
-      setEnd(new Date())
+      setStart(new Date().toISOString())
+      setEnd(new Date().toISOString())
       setUserId('')
     }
   }
 
+  // render user names 
   const usersOptions = users.map(user => (
     <option key={user.id} value={user.id}>{user.name}</option>
   ))
@@ -60,6 +56,7 @@ const AddEvent = () => {
             <input type='text' id='content' value={content} onChange={onContentChange}></input>
             <br></br>
             
+            {/* user names */}
             <label htmlFor='assignee'>Assignee: </label>
             <select id='assignee' value={userId} onChange={onAssigneeChange}>
                 <option value=''></option>

@@ -6,8 +6,6 @@ import EventAssignee from "./eventAssignee";
 const EventsList = () => {
   const events = useSelector(selectAllEvents)
 
-  // const orderedEvents = events.slice().sort((a, b) => b.date.localeCompare(a.date))
-
   const renderEvents = events.map(event => (
     <article key={event.id}>
         <h3>{event.title}</h3>
@@ -19,7 +17,7 @@ const EventsList = () => {
   
   return (
     <section>
-      <h1>Event</h1>
+      <h1>All Events</h1>
       <hr></hr>
       {renderEvents}
     </section>

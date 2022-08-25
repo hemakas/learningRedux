@@ -6,7 +6,7 @@ const EventAssignee = ({ userId }) => {
   const assignee = users.find(user => user.id === userId)
   
     return (
-    <span>Assigned to {assignee ? assignee.name : 'Not assigned'}</span>
+    <span>Assigned to : {assignee ? assignee.name : 'Nobody'}</span>
   )
 }
 
