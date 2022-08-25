@@ -6,14 +6,15 @@ const UsersList = () => {
 
   const renderUsers = users.map(user => (
     <article key={user.id}>
-        <h3>{user.name}</h3>
-        <h5>{user.email}</h5>
+        <h3><span>({user.id})</span> {user.name}</h3>
+        <p>{user.email}</p>
     </article>
   ))
   
   return (
     <section>
-      <h1>Users</h1>
+      <h1>All Users</h1>
+      <hr></hr>
       {renderUsers}
     </section>
   )

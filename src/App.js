@@ -7,8 +7,8 @@ function App() {
   return (
     <div>
       <h1>Hello Redux</h1>
-      {/* <UsersList />
-      <AddUser /> */}
+      <UsersList />
+      <AddUser />
 
       <EventsList />
       <AddEvent />

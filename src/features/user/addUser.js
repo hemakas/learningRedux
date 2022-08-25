@@ -12,6 +12,9 @@ const AddUser = () => {
   const onNameChange = e => setName(e.target.value)
   const onEmailChange = e => setEmail(e.target.value)
 
+  // enable or disable submit button
+  const canSumbmit = Boolean(name) && Boolean(email)
+
   const OnSubmit = () => {
     if (name && email) {
       dispatch (
@@ -25,16 +28,21 @@ const AddUser = () => {
 
   return (
     <section>
-        <h2>Add a new user</h2>
+        <h2>Add New User</h2>
+        <hr></hr>
         <form>
-            <label htmlFor='name'>Name: </label>
-            <input type='text' id='name' value={name} onChange={onNameChange}></input>
-            <br></br>
-            <label htmlFor='email'>Email: </label>
-            <input type='text' id='email' value={email} onChange={onEmailChange}></input>
-            <br></br> 
-            <button type='button' onClick={OnSubmit}>Submit</button>
+          <label htmlFor='name'>Name: </label>
+          <input type='text' id='name' value={name} onChange={onNameChange}></input>
+          <br></br>
+
+          <label htmlFor='email'>Email: </label>
+          <input type='text' id='email' value={email} onChange={onEmailChange}></input>
+          <br></br> 
+
+          <button type='button' onClick={OnSubmit} disabled={!canSumbmit}>Submit</button>
         </form>
+        <hr></hr>
+        <hr></hr>
     </section>
   )
 }
