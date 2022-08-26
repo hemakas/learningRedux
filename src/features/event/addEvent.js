@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { eventAdded } from './eventSlice'
+import { addNewEvent } from './eventSlice'
 import { selectAllUsers } from '../user/userSlice'
 
 const AddEvent = () => {
@@ -12,6 +12,8 @@ const AddEvent = () => {
   const[start, setStart] = useState(new Date().toISOString())
   const[end, setEnd] = useState(new Date().toISOString())
   const[userId, setUserId] = useState('')
+  
+  const[addReqestStatus, setAddReqestStatus] = useState('idle')
 
   const users = useSelector(selectAllUsers)
 
@@ -21,18 +23,35 @@ const AddEvent = () => {
   const onEndChange = e => setEnd(e.target.value)
   const onAssigneeChange = e => setUserId(e.target.value)
 
+  // enable or disable submit button
+  const canSumbmit = [title, content, userId].every(Boolean) && addReqestStatus === 'idle'
+  
+  // submit form data
   const OnSubmit = () => {
-    if (title && content) {
+    if (canSumbmit) {
+      try {
+        setAddReqestStatus('pending')
 
-      dispatch (
-        eventAdded ( title, content, start, end, userId )
-      )
+        dispatch (
+          addNewEvent ({
+            title,
+            content,
+            start,
+            end,
+            userId
+          })
+        )
 
-      setTitle('')
-      setContent('')
-      setStart(new Date().toISOString())
-      setEnd(new Date().toISOString())
-      setUserId('')
+        setTitle('')
+        setContent('')
+        setStart(new Date().toISOString())
+        setEnd(new Date().toISOString())
+
+      } catch (error) {
+        console.log('Failed to save the post', error)
+      } finally {
+        setAddReqestStatus('idle')
+      }
     }
   }
 
@@ -40,9 +59,6 @@ const AddEvent = () => {
   const usersOptions = users.map(user => (
     <option key={user.id} value={user.id}>{user.name}</option>
   ))
-
-  //   enable or disable submit button
-  const canSumbmit = Boolean(title) && Boolean(userId)
 
   return (
     <section>

@@ -20,6 +20,16 @@ export const fetchEvents = createAsyncThunk('events/fetchEvents', async () => {
     }
 })
 
+// create new event
+export const addNewEvent = createAsyncThunk('events/addNewEvent', async (initialPost) => {
+    try {
+        const response =  await axios.post(EVENTS_URL, initialPost)
+        return response.data
+    } catch (error) {
+        return error.message
+    }
+})
+
 export const EventSlice = createSlice({
     name: 'events',
     initialState,
@@ -67,6 +77,13 @@ export const EventSlice = createSlice({
             .addCase (fetchEvents.rejected, (state, action) => {
                 state.status = 'failed'
                 state.error = action.error.message
+            })
+            .addCase (addNewEvent.fulfilled, (state, action) => {
+                action.payload.userId = Number(action.payload.userId)
+
+                console.log(action.payload)
+
+                state.events.push(action.payload)
             })
     }
 })

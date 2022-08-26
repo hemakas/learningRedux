@@ -12,6 +12,8 @@ const EventsList = () => {
 
   useEffect(() => {
     if (eventStatus === 'idle') {
+      
+      // fetch all events
       dispatch(fetchEvents())
     }
   }, [eventStatus, dispatch])
@@ -23,7 +25,10 @@ const EventsList = () => {
     content = <p>"Loading..."</p>
   } else if (eventStatus === 'succeeded') {
     // show content
-    content = events.map(event => <EventExerpt key={event.id} event={event} /> )
+    content = events.map((event, index) =>
+      <EventExerpt key={index} event={event} /> 
+    )
+    
   } else if (eventStatus === 'failed') {
     // show error message
     content = <p>{error}</p>
