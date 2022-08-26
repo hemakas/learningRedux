@@ -2,7 +2,7 @@ import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
 import { sub } from "date-fns";
 import axios from "axios";
 
-const EVENTS_URL = 'https://jsonplaceholder.typicode.com/todos'
+const EVENTS_URL = 'https://jsonplaceholder.typicode.com/posts'
 
 const initialState = { 
     events: [],
@@ -15,6 +15,7 @@ export const fetchEvents = createAsyncThunk('events/fetchEvents', async () => {
     try {
         const response =  await axios.get(EVENTS_URL)
         return [...response.data]
+
     } catch (error) {
         return error.message
     }

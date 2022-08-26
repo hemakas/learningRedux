@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom'
 
 const EventExerpt = ({ event, index }) => {
   return (
-    <article key={event.id}>
+    <article className="card card-1" key={event.id}>
         <h3>{index}</h3>
-        <h3>{event.title}</h3>
-        <p>{event.body}</p>
-        <Link to={`event/${event.id}`}><i><u>View Event</u></i></Link>
-        <p>{event.start} | {event.end}</p>
+        <h2 className="card__title">{event.title.substring(0, 35)}...</h2>
+        <p className="card__body">{event.body.substring(0, 75)}...</p>
+
+        <p className="card__apply">
+          <Link to={`event/${event.id}`}><span className="card__link">View Event</span><i class="fas fa-arrow-right"></i></Link>
+        </p>
+        
+        <p className="card__body">{event.start} | {event.end}</p>
         <p><EventAssignee userId={event.userId} /></p>
     </article>
   )
