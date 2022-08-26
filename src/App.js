@@ -6,7 +6,7 @@ import AddEvent from './features/event/addEvent';
 function App() {
   return (
     <div>
-      <h1>Hello Redux</h1>
+      <h1>Redux App</h1>
       <UsersList />
       <AddUser />
 

@@ -17,11 +17,15 @@ const EventsList = () => {
   }, [eventStatus, dispatch])
 
   let content
+
   if (eventStatus === 'loading') {
+    // show loading
     content = <p>"Loading..."</p>
   } else if (eventStatus === 'succeeded') {
+    // show content
     content = events.map(event => <EventExerpt key={event.id} event={event} /> )
   } else if (eventStatus === 'failed') {
+    // show error message
     content = <p>{error}</p>
   }
   
@@ -29,6 +33,8 @@ const EventsList = () => {
     <section>
       <h1>All Events</h1>
       <hr></hr>
+      
+      {/* render fetched content */}
       {content}
     </section>
   )
