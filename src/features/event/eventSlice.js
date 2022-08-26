@@ -38,12 +38,12 @@ export const EventSlice = createSlice({
             reducer (state, action) {
                 state.events.push(action.payload)
             },
-            prepare (title, content, start, end, userId) {
+            prepare (title, body, start, end, userId) {
                 return {
                     payload: {
                         id: nanoid(),
                         title,
-                        content,
+                        body,
                         start,
                         end,
                         userId
@@ -80,9 +80,7 @@ export const EventSlice = createSlice({
             })
             .addCase (addNewEvent.fulfilled, (state, action) => {
                 action.payload.userId = Number(action.payload.userId)
-
                 console.log(action.payload)
-
                 state.events.push(action.payload)
             })
     }
@@ -93,6 +91,9 @@ export const selectAllEvents = (state) => state.events.events
 export const getEventStatus = (state) => state.events.status
 
 export const getEventError = (state) => state.events.error
+
+// find a single event
+export const selectEventById = (state, eventId) => state.events.events.find(event => event.id === eventId)
 
 export const { eventAdded } = EventSlice.actions
 
