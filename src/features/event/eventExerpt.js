@@ -9,7 +9,7 @@ const EventExerpt = ({ event, index }) => {
         <p className="card__body">{event.body.substring(0, 75)}...</p>
 
         <p className="card__apply">
-          <Link to={`event/${event.id}`}><span className="card__link">View Event</span><i class="fas fa-arrow-right"></i></Link>
+          <Link to={`event/${event.id}`}><span className="card__link">View Event</span></Link>
         </p>
         
         <p className="card__body">{event.start} | {event.end}</p>

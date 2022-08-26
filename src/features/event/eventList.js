@@ -35,13 +35,13 @@ const EventsList = () => {
   }
   
   return (
-    <section className="cards">
-      <h1>All Events</h1>
-      <br></br>
-      <br></br>
+    <section>
+      <h1 className="heading heading__title">All Events</h1>
       
       {/* render fetched content */}
-      {content}
+      <div className="cards main-container">
+        {content}
+      </div>
     </section>
   )
 }

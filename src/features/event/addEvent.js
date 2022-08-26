@@ -61,7 +61,7 @@ const AddEvent = () => {
   ))
 
   return (
-    <section>
+    <section className="container card-3">
         <h2>Add a new user</h2>
         <form>
             <label htmlFor='title'>Title: </label>

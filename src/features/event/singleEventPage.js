@@ -19,12 +19,12 @@ const SingleEventPage = () => {
     }
  
     return (
-        <article key={event.id}>
-        <h3>{event.title}</h3>
-        <p>{event.body}</p>
-        <p>{event.start} | {event.end}</p>
-        <p><EventAssignee userId={event.userId} /></p>
-    </article>
+        <article key={event.id} className="container card-2">
+            <h2 className="card__title">{event.title}</h2>
+            <p className="card__body">{event.body}</p>
+            <p>{event.start} | {event.end}</p>
+            <p><EventAssignee userId={event.userId} /></p>
+        </article>
     )
 }
 
