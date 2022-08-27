@@ -2,6 +2,7 @@ import { useSelector } from "react-redux"
 import { selectEventById } from "./eventSlice"
 import EventAssignee from "./eventAssignee"
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const SingleEventPage = () => {
     
@@ -24,6 +25,9 @@ const SingleEventPage = () => {
             <p className="card__body">{event.body}</p>
             <p>{event.start} | {event.end}</p>
             <p><EventAssignee userId={event.userId} /></p>
+            <p className="card__apply">
+                <Link to={`/event/edit/${event.id}`}>Edit Event</Link>
+            </p>
         </article>
     )
 }

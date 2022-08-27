@@ -2,18 +2,19 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addNewEvent } from './eventSlice'
 import { selectAllUsers } from '../user/userSlice'
+import { useNavigate } from 'react-router-dom'
 
 const AddEvent = () => {
-
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const[title, setTitle] = useState('')
-  const[content, setContent] = useState('')
-  const[start, setStart] = useState(new Date().toISOString())
-  const[end, setEnd] = useState(new Date().toISOString())
-  const[userId, setUserId] = useState('')
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [start, setStart] = useState(new Date().toISOString())
+  const [end, setEnd] = useState(new Date().toISOString())
+  const [userId, setUserId] = useState('')
   
-  const[addReqestStatus, setAddReqestStatus] = useState('idle')
+  const [addReqestStatus, setAddReqestStatus] = useState('idle')
 
   const users = useSelector(selectAllUsers)
 
@@ -32,8 +33,7 @@ const AddEvent = () => {
       try {
         setAddReqestStatus('pending')
 
-        dispatch (
-          addNewEvent ({
+        dispatch (addNewEvent ({
             title,
             content,
             start,
@@ -46,6 +46,9 @@ const AddEvent = () => {
         setContent('')
         setStart(new Date().toISOString())
         setEnd(new Date().toISOString())
+
+        // navigate user to the events page
+        navigate(`/`)
 
       } catch (error) {
         console.log('Failed to save the post', error)

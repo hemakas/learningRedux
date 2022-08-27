@@ -1,9 +1,7 @@
-import UsersList from './features/user/userList'
-import AddUser from './features/user/addUser'
 import EventsList from './features/event/eventList'
 import AddEvent from './features/event/addEvent'
-
 import SingleEventPage from './features/event/singleEventPage'
+import EditEvent from './features/event/editEvent'
 import Layout from './components/Layout'
 import { Routes, Route } from 'react-router-dom'
 
@@ -21,6 +19,9 @@ function App() {
           
           {/* /event/:id - lands on a single event */}
           <Route path=':eventId' element={<SingleEventPage />}/>
+
+          {/* /event/edit/:id - lands on edit event form */}
+          <Route path='edit/:eventId' element={<EditEvent />}/>
         </Route>
 
       </Route>

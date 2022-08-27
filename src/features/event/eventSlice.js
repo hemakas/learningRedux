@@ -22,9 +22,23 @@ export const fetchEvents = createAsyncThunk('events/fetchEvents', async () => {
 })
 
 // create new event
-export const addNewEvent = createAsyncThunk('events/addNewEvent', async (initialPost) => {
+export const addNewEvent = createAsyncThunk('events/addNewEvent', async (initialEvent) => {
     try {
-        const response =  await axios.post(EVENTS_URL, initialPost)
+        const response =  await axios.post(EVENTS_URL, initialEvent)
+        return response.data
+    } catch (error) {
+        return error.message
+    }
+})
+
+// upate event
+export const updateEvent = createAsyncThunk('events/updateEvent', async (initialEvent) => {
+    // get id of the event to be updated
+    const { id } = initialEvent
+    
+    try {
+        // update event
+        const response =  await axios.put(`${EVENTS_URL}/${id}`, initialEvent)
         return response.data
     } catch (error) {
         return error.message
@@ -57,9 +71,11 @@ export const EventSlice = createSlice({
     // extra reducer
     extraReducers(builder) {
         builder
+            // fetch all events - loading
             .addCase (fetchEvents.pending, (state, action) => {
                 state.status = 'loading'
             })
+            // fetch all events - if scceeded
             .addCase (fetchEvents.fulfilled, (state, action) => {
                 state.status = 'succeeded'
 
@@ -75,14 +91,40 @@ export const EventSlice = createSlice({
                 state.events = state.events.concat(loadedEvents)
 
             })
+            // fetch all events - if failed
             .addCase (fetchEvents.rejected, (state, action) => {
                 state.status = 'failed'
                 state.error = action.error.message
             })
+            // add new event
             .addCase (addNewEvent.fulfilled, (state, action) => {
                 action.payload.userId = Number(action.payload.userId)
                 console.log(action.payload)
                 state.events.push(action.payload)
+            })
+            // update event
+            .addCase (updateEvent.fulfilled, (state, action) => {
+                if (!action.payload?.id) {
+                    console.log('Update could not complete')
+                    console.log(action.payload)
+                    return
+                }
+
+                const { id } = action.payload
+
+                const { userId } = action.payload
+                console.log(userId)
+                
+                // add new start and end dates
+                let day = 1
+                action.payload.start = sub(new Date(), { days: day++ }).toISOString()
+                action.payload.end = sub(new Date(), { days: day++ }).toISOString()
+
+                // filter out the event to be edited
+                const event = state.events.filter(event => event.id !== id)
+
+                // insert the updated event into the events array
+                state.events = [...event, action.payload]
             })
     }
 })
